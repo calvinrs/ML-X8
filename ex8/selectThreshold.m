@@ -24,16 +24,19 @@ for epsilon = min(pval):stepsize:max(pval)
     %       of 0's and 1's of the outlier predictions
 
 
+    thisP = pval < epsilon; %predicted positives
 
+    %logical matches
+    
+    fp = sum((thisP == 1) & (yval == 0)); % false positives
+    tp = sum((thisP == 1) & (yval == 1)); % true positives
+    fn = sum((thisP == 0) & (yval == 1)); % false negatives
+    tn = sum((thisP == 0) & (yval == 0)); % false negatives (not required, but is a useful check)
 
+    prec = tp /(tp + fp); %precision
+    rec = tp / (tp + fn); %recall
 
-
-
-
-
-
-
-
+    F1 = (2 * prec * rec) / (prec + rec); % F1 score
 
     % =============================================================
 
